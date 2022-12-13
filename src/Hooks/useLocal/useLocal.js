@@ -13,5 +13,10 @@ const addToCart=productID=>{
         existCart[productID]=1
     localStorage.setItem('cycle-cart',JSON.stringify(existCart))
 }
+const removeFromCart=productID=>{
+    let existCart=getCartLS()
+    delete existCart[productID]
+    localStorage.setItem('cycle-cart',JSON.stringify(existCart))
+}
 
-export {getCartLS,addToCart}
+export {getCartLS,addToCart,removeFromCart}

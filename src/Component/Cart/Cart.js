@@ -1,6 +1,6 @@
 import React from 'react';
 import './Cart.css'
-const Cart = ({cart}) => {
+const Cart = ({cart,removeFromLSHandler}) => {
     let total,nbOfProduct=0
     total=cart.reduce((sum,item)=>sum+=(parseInt(item?.price)*item?.quantity),0)
     return (
@@ -21,10 +21,15 @@ const Cart = ({cart}) => {
                                 <>
                                     <tr className='lh-sm cart-body'>
                                         <td className='text-center'>{++nbOfProduct}</td>
-                                        <td className='text-center'>{pd?.model}</td>
+                                        <td className='text-center'>{pd?.model.slice(0,21)}</td>
                                         <td className='text-center'>{pd?.price}</td>
                                         <td className='text-center'>{pd?.quantity}</td>
                                         <td className='text-end'>{pd?.quantity*pd?.price}</td>
+                                        <td className='text-end'>
+                                            <button className='btn btn-sm btn-danger'
+                                            onClick={()=>removeFromLSHandler(pd?._id)}
+                                            >X</button>
+                                        </td>
                                     </tr>
                                 </>
                                         )  

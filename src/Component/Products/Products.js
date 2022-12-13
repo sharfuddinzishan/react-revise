@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { addToCart, getCartLS } from '../../Hooks/useLocal/useLocal';
+import { addToCart, getCartLS, removeFromCart } from '../../Hooks/useLocal/useLocal';
 import Product from './../Product/Product';
 import Cart from './../Cart/Cart';
 
 const Products = () => {
     const [products,setProducts]=useState([])
     const [cart,setCart]=useState([])
-    const [isAdded,setIsAdded]=useState(false)
+    const [isChanged,setIsChanged]=useState(false)
     useEffect(()=>{
         axios.get(`https://hero-cycle-server-side-production.up.railway.app/cycles`)
         .then(result=>{
@@ -27,22 +27,25 @@ const Products = () => {
                 }
             }
         setCart(cartData)
-        setIsAdded(false)
+        setIsChanged(false)
         }
-    },[products,isAdded])
+    },[products,isChanged])
 
     let addToLSHandler=productID=>{
         addToCart(productID)
-        setIsAdded(true)
+        setIsChanged(true)
+    }
+    let removeFromLSHandler=productID=>{
+        removeFromCart(productID)
+        setIsChanged(true)
     }
     
     return (
         <div className='container-fluid bg-light'>
-            <h1 className='text-center'>BiCycles {products.length}</h1>
+            <h1 className='text-center'>Total {products.length} BiCycles Found</h1>
             <div className="container">
                 <div className="row">
                     <div className="col-6 col-md-8">
-                        <h3>Cycles Show....</h3>
                         <div className="row row-cols-1 row-cols-md-3 g-4">
                             {
                                 products.map(product=><Product product={product}
@@ -51,8 +54,8 @@ const Products = () => {
                             }
                         </div>
                     </div>
-                    <div className="col-6 col-md-4">
-                        <Cart cart={cart}></Cart>
+                    <div className="col-6 col-md-4 bg-dark text-light h-75 position-sticky top-0">
+                        <Cart cart={cart} removeFromLSHandler={removeFromLSHandler}></Cart>
                     </div>
                 </div>
             </div>
