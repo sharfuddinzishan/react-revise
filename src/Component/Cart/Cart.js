@@ -1,11 +1,11 @@
 import React from 'react';
 import './Cart.css'
-const Cart = ({cart,removeFromLSHandler,productPage}) => {
+const Cart = ({cart,removeFromLSHandler,productPage,children}) => {
     let total,nbOfProduct=0
     total=cart.reduce((sum,item)=>sum+=(parseInt(item?.price)*item?.quantity),0)
     return (
         <>
-                <table>
+                <table className='table-sm'>
                     <thead>
                         <tr className='text-center'>
                             <th>#</th>
@@ -13,6 +13,7 @@ const Cart = ({cart,removeFromLSHandler,productPage}) => {
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Amount</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +42,13 @@ const Cart = ({cart,removeFromLSHandler,productPage}) => {
                         <tr>
                             <td colSpan='3'className='text-center'>Total: </td>
                             <td colSpan='2' className='text-end'>{total}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan='5' className='text-center'>
+                                {
+                                    children
+                                }
+                            </td>
                         </tr>
                     </tfoot>
                 </table>

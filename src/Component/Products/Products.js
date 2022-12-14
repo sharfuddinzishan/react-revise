@@ -4,6 +4,7 @@ import Product from './../Product/Product';
 import Cart from './../Cart/Cart';
 import useProducts from '../../Hooks/useProducts';
 import useCart from '../../Hooks/useCart';
+import { Link } from 'react-router-dom';
 
 const Products = () => {
     const [products]=useProducts()
@@ -35,7 +36,11 @@ const Products = () => {
                         </div>
                     </div>
                     <div className="col-6 col-md-4 bg-dark text-light h-75 position-sticky top-0">
-                        <Cart cart={cart} removeFromLSHandler={removeFromLSHandler} productPage={1}></Cart>
+                        <Cart cart={cart} removeFromLSHandler={removeFromLSHandler} productPage={1}>
+                            <Link to='/orders'>
+                                <button className='btn btn-sm btn-info px-5 mb-2'>Review Orders</button>
+                            </Link>
+                        </Cart>
                     </div>
                 </div>
             </div>
