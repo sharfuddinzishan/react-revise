@@ -1,35 +1,15 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { addToCart, getCartLS, removeFromCart } from '../../Hooks/useLocal/useLocal';
+import React, { useState } from 'react';
+import { addToCart, removeFromCart } from '../../Hooks/useLocal';
 import Product from './../Product/Product';
 import Cart from './../Cart/Cart';
+import useProducts from '../../Hooks/useProducts';
+import useCart from '../../Hooks/useCart';
 
 const Products = () => {
-    const [products,setProducts]=useState([])
-    const [cart,setCart]=useState([])
+    const [products]=useProducts()
     const [isChanged,setIsChanged]=useState(false)
-    useEffect(()=>{
-        axios.get(`https://hero-cycle-server-side-production.up.railway.app/cycles`)
-        .then(result=>{
-            setProducts(result?.data)
-        })
-    },[])
+    const [cart]=useCart(products,isChanged,setIsChanged)
 
-    useEffect(()=>{
-        let getlSData=getCartLS()
-        let cartData=[]
-        if(getlSData){
-            for(let id in getlSData){
-                let exists=products.find(data=>data._id===id)
-                if(exists){
-                    exists["quantity"]=getlSData[id]
-                    cartData.push(exists)
-                }
-            }
-        setCart(cartData)
-        setIsChanged(false)
-        }
-    },[products,isChanged])
 
     let addToLSHandler=productID=>{
         addToCart(productID)
