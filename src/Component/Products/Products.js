@@ -28,7 +28,7 @@ const Products = () => {
                     <div className="col-6 col-md-8">
                         <div className="row row-cols-1 row-cols-md-3 g-4">
                             {
-                                products.map(product=><Product product={product}
+                                products.map(product=><Product key={product._id} product={product}
                                 addToLSHandler={addToLSHandler}
                                 ></Product>)
                             }

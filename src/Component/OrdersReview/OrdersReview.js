@@ -23,7 +23,7 @@ const OrdersReview = () => {
                     <div className="col-6 col-md-8">
                         <div className="row row-cols-1 g-4">
                             {
-                                cart.map(product=><OrderReview product={product}
+                                cart.map(product=><OrderReview product={product} key={product._id}
                                 removeFromLSHandler={removeFromLSHandler}
                                 ></OrderReview>)
                             }
